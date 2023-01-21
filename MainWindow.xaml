@@ -6,45 +6,111 @@
         xmlns:local="clr-namespace:TourneyScoreSystem"
         mc:Ignorable="d"
         Title="College Tournament Scoring System" Height="720" Width="1280" ResizeMode="NoResize">
-    <Grid x:Name="defineEventPage">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Define Events" HorizontalAlignment="Center"
+    <Canvas>
+        <Grid x:Name="defineEventPage" Height="720" Width="1280" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Define Events" HorizontalAlignment="Center"
                    Grid.ColumnSpan="2" Margin="0,0,0,20" />
-        <TextBlock x:Name="eventHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="1st Event" 
+            <TextBlock x:Name="eventHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="1st Event" 
                    HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,20" />
-        <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Event Title: " 
+            <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Event Title: " 
                    HorizontalAlignment="Right" />
-        <TextBox x:Name="eventTitle" Grid.Column="2" Grid.Row="3" FontSize="28" Width="240" 
+            <TextBox x:Name="eventTitle" Grid.Column="2" Grid.Row="3" FontSize="28" Width="240" 
                  HorizontalAlignment="Left" Margin="10,0,0,20" />
-        <TextBlock Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" Text="Individual or Team: " 
+            <TextBlock Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" Text="Individual or Team: " 
                    HorizontalAlignment="Right" />
-        <ComboBox x:Name="comboTeam" Grid.Column="2" Grid.Row="4" FontSize="28" Width="240" 
+            <ComboBox x:Name="comboTeam" Grid.Column="2" Grid.Row="4" FontSize="28" Width="240" 
                   HorizontalAlignment="Left" Margin="10,0,0,20" />
-        <Button x:Name="eventPrevBtn" Grid.Column="1" Grid.Row="5" Content="Previous" Width="250" Height="42" 
+            <Button x:Name="eventPrevBtn" Grid.Column="1" Grid.Row="5" Content="Previous" Width="250" Height="42" 
                 HorizontalAlignment="Right" Margin="0,0,10,30" Click="eventPrevBtnClicked" />
-        <Button x:Name="eventEndBtn" Grid.Column="2" Grid.Row="5" Content="Finished Defining Events!" Width="250" 
+            <Button x:Name="eventEndBtn" Grid.Column="2" Grid.Row="5" Content="Finished Defining Events!" Width="250" 
                 Height="42" HorizontalAlignment="Left" Margin="10,0,0,30" Click="eventEndBtnClicked" />
-        <Button x:Name="eventNextBtn" Grid.Column="2" Grid.Row="5" Content="Next" Width="250" Height="42" 
+            <Button x:Name="eventNextBtn" Grid.Column="2" Grid.Row="5" Content="Next" Width="250" Height="42" 
                 HorizontalAlignment="Left" Margin="10,0,0,30" Click="eventNextBtnClicked" />
-        <Rectangle x:Name="eventErrorRect" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Fill="Red"
+            <Rectangle x:Name="eventErrorRect" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Fill="Red"
                    Margin="0,0,0,200" />
-        <TextBlock x:Name="eventErrorText" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" FontSize="42" 
+            <TextBlock x:Name="eventErrorText" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" FontSize="42" 
                    Foreground="White" HorizontalAlignment="Center" Margin="0,25,0,0" 
                    Text="You Must Enter Values for all Fields to Continue" />
-    </Grid>
+        </Grid>
+        <Grid x:Name="defineTeamsPage" Height="720" Width="1280">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Define Teams" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2" Margin="0,0,0,20" />
+            <TextBlock x:Name="teamsHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="1st Team" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,20" />
+            <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Team Name: " 
+                   HorizontalAlignment="Right" />
+            <TextBox x:Name="teamName" Grid.Column="2" Grid.Row="3" FontSize="28" Width="240" 
+                 HorizontalAlignment="Left" Margin="10,0,0,20" />
+            <TextBlock x:Name="comboFirstBlock" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" 
+                       Visibility="Hidden" HorizontalAlignment="Right" />
+            <ComboBox x:Name="comboFirst" Grid.Column="2" Grid.Row="4" FontSize="28" Width="240" HorizontalAlignment="Left" 
+                     Visibility="Hidden" Margin="10,0,0,20" DataContext="{Binding event1}" />
+            <TextBlock x:Name="comboSecondBlock" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" 
+                       Visibility="Hidden" HorizontalAlignment="Right" />
+            <ComboBox x:Name="comboSecond" Grid.Column="2" Grid.Row="5" FontSize="28" Width="240" HorizontalAlignment="Left" 
+                     Visibility="Hidden" Margin="10,0,0,20" />
+            <TextBlock x:Name="comboThirdBlock" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" 
+                       Visibility="Hidden" HorizontalAlignment="Right" />
+            <ComboBox x:Name="comboThird" Grid.Column="2" Grid.Row="6" FontSize="28" Width="240" HorizontalAlignment="Left" 
+                     Visibility="Hidden" Margin="10,0,0,20" />
+            <TextBlock x:Name="comboFourthBlock" Grid.Column="1" Grid.Row="7" FontSize="30" FontWeight="Bold" 
+                       Visibility="Hidden" HorizontalAlignment="Right" />
+            <ComboBox x:Name="comboFourth" Grid.Column="2" Grid.Row="7" FontSize="28" Width="240" HorizontalAlignment="Left" 
+                     Visibility="Hidden" Margin="10,0,0,20" />
+            <TextBlock x:Name="comboFifthBlock" Grid.Column="1" Grid.Row="8" FontSize="30" FontWeight="Bold" 
+                       Visibility="Hidden" HorizontalAlignment="Right" />
+            <ComboBox x:Name="comboFifth" Grid.Column="2" Grid.Row="8" FontSize="28" Width="240" HorizontalAlignment="Left" 
+                     Visibility="Hidden" Margin="10,0,0,20" />
+            <Button x:Name="teamsPrevBtn" Grid.Column="1" Grid.Row="9" Content="Previous" Width="250" Height="42" 
+                HorizontalAlignment="Right" Margin="0,0,10,10" Click="teamsPrevBtnClicked" />
+            <Button Grid.Column="1" Grid.Row="9" Content="Previous" Width="250" Height="42" 
+                HorizontalAlignment="Right" Margin="0,0,10,10" Visibility="Hidden" />
+            <Button x:Name="teamsEndBtn" Grid.Column="2" Grid.Row="9" Content="Finished Defining Teams!" Width="250" 
+                Height="42" HorizontalAlignment="Left" Margin="10,0,0,10" Click="teamsEndBtnClicked" />
+            <Button x:Name="teamsNextBtn" Grid.Column="2" Grid.Row="9" Content="Next" Width="250" Height="42" 
+                HorizontalAlignment="Left" Margin="10,0,0,10" Click="teamsNextBtnClicked" />
+            <Rectangle x:Name="teamsErrorRect" Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4" Fill="Red"
+                    Height="80" VerticalAlignment="Top"/>
+            <TextBlock x:Name="teamsErrorText" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" FontSize="42" 
+                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0" 
+                   Text="You Must Enter Values for all Fields to Continue" />
+        </Grid>
+    </Canvas>
 </Window>

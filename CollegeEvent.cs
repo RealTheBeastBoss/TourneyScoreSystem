@@ -8,5 +8,6 @@ namespace TourneyScoreSystem
     {
         public string eventTitle;
         public bool isTeamEvent;
+        public List<Team> teams = new List<Team>();
     }
 }

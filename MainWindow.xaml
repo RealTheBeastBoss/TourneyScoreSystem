@@ -1,0 +1,50 @@
+﻿<Window x:Class="TourneyScoreSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourneyScoreSystem"
+        mc:Ignorable="d"
+        Title="College Tournament Scoring System" Height="720" Width="1280" ResizeMode="NoResize">
+    <Grid x:Name="defineEventPage">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Define Events" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2" Margin="0,0,0,20" />
+        <TextBlock x:Name="eventHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="1st Event" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,20" />
+        <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Event Title: " 
+                   HorizontalAlignment="Right" />
+        <TextBox x:Name="eventTitle" Grid.Column="2" Grid.Row="3" FontSize="28" Width="240" 
+                 HorizontalAlignment="Left" Margin="10,0,0,20" />
+        <TextBlock Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" Text="Individual or Team: " 
+                   HorizontalAlignment="Right" />
+        <ComboBox x:Name="comboTeam" Grid.Column="2" Grid.Row="4" FontSize="28" Width="240" 
+                  HorizontalAlignment="Left" Margin="10,0,0,20" />
+        <Button x:Name="eventPrevBtn" Grid.Column="1" Grid.Row="5" Content="Previous" Width="250" Height="42" 
+                HorizontalAlignment="Right" Margin="0,0,10,30" Click="eventPrevBtnClicked" />
+        <Button x:Name="eventEndBtn" Grid.Column="2" Grid.Row="5" Content="Finished Defining Events!" Width="250" 
+                Height="42" HorizontalAlignment="Left" Margin="10,0,0,30" Click="eventEndBtnClicked" />
+        <Button x:Name="eventNextBtn" Grid.Column="2" Grid.Row="5" Content="Next" Width="250" Height="42" 
+                HorizontalAlignment="Left" Margin="10,0,0,30" Click="eventNextBtnClicked" />
+        <Rectangle x:Name="eventErrorRect" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Fill="Red"
+                   Margin="0,0,0,200" />
+        <TextBlock x:Name="eventErrorText" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" FontSize="42" 
+                   Foreground="White" HorizontalAlignment="Center" Margin="0,25,0,0" 
+                   Text="You Must Enter Values for all Fields to Continue" />
+    </Grid>
+</Window>

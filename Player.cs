@@ -6,7 +6,13 @@ namespace TourneyScoreSystem
 {
     public class Player
     {
-        public string name;
+        public string name { get; set; }
+        public int ID;
         public int points;
+
+        public Player(int _ID)
+        {
+            ID = _ID;
+        }
     }
 }

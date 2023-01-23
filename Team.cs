@@ -6,8 +6,14 @@ namespace TourneyScoreSystem
 {
     public class Team
     {
-        public string teamName;
+        public string name { get; set; }
+        public int ID;
         public List<Player> players = new List<Player>();
         public int teamPoints;
+
+        public Team(int _ID)
+        {
+            ID = _ID;
+        }
     }
 }

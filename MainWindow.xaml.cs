@@ -20,37 +20,37 @@ namespace TourneyScoreSystem
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static CollegeEvent event1 = new CollegeEvent();
-        public static CollegeEvent event2 = new CollegeEvent();
-        public static CollegeEvent event3 = new CollegeEvent();
-        public static CollegeEvent event4 = new CollegeEvent();
-        public static CollegeEvent event5 = new CollegeEvent();
+        public static CollegeEvent event1 = new CollegeEvent(0);
+        public static CollegeEvent event2 = new CollegeEvent(1);
+        public static CollegeEvent event3 = new CollegeEvent(2);
+        public static CollegeEvent event4 = new CollegeEvent(3);
+        public static CollegeEvent event5 = new CollegeEvent(4);
         public static CollegeEvent[] collegeEvents = new CollegeEvent[] { event1, event2, event3, event4, event5 };
-        public static Team team1 = new Team();
-        public static Team team2 = new Team();
-        public static Team team3 = new Team();
-        public static Team team4 = new Team();
+        public static Team team1 = new Team(0);
+        public static Team team2 = new Team(1);
+        public static Team team3 = new Team(2);
+        public static Team team4 = new Team(3);
         public static Team[] allTeams = new Team[] { team1, team2, team3, team4 };
-        public static Player player1 = new Player();
-        public static Player player2 = new Player();
-        public static Player player3 = new Player();
-        public static Player player4 = new Player();
-        public static Player player5 = new Player();
-        public static Player player6 = new Player();
-        public static Player player7 = new Player();
-        public static Player player8 = new Player();
-        public static Player player9 = new Player();
-        public static Player player10 = new Player();
-        public static Player player11 = new Player();
-        public static Player player12 = new Player();
-        public static Player player13 = new Player();
-        public static Player player14 = new Player();
-        public static Player player15 = new Player();
-        public static Player player16 = new Player();
-        public static Player player17 = new Player();
-        public static Player player18 = new Player();
-        public static Player player19 = new Player();
-        public static Player player20 = new Player();
+        public static Player player1 = new Player(0);
+        public static Player player2 = new Player(1);
+        public static Player player3 = new Player(2);
+        public static Player player4 = new Player(3);
+        public static Player player5 = new Player(4);
+        public static Player player6 = new Player(5);
+        public static Player player7 = new Player(6);
+        public static Player player8 = new Player(7);
+        public static Player player9 = new Player(8);
+        public static Player player10 = new Player(9);
+        public static Player player11 = new Player(10);
+        public static Player player12 = new Player(11);
+        public static Player player13 = new Player(12);
+        public static Player player14 = new Player(13);
+        public static Player player15 = new Player(14);
+        public static Player player16 = new Player(15);
+        public static Player player17 = new Player(16);
+        public static Player player18 = new Player(17);
+        public static Player player19 = new Player(18);
+        public static Player player20 = new Player(19);
         public static Player[] allPlayers = new Player[] { player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, 
             player14, player15, player16, player17, player18, player19, player20 };
         public static ComboBox[] comboBoxes;
@@ -93,6 +93,31 @@ namespace TourneyScoreSystem
                     return;
                 }
             }
+            List<string> names = new List<string>();
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible)
+                {
+                    string _name = "";
+                    if (collegeEvents[pageIndex].isTeamEvent)
+                    {
+                        Team _team = (Team)cb.SelectedItem;
+                        _name = _team.name;
+                    }
+                    else
+                    {
+                        Player _player = (Player)cb.SelectedItem;
+                        _name = _player.name;
+                    }
+                    names.Add(_name);
+                }
+            }
+            List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
+            if (text.Count != 0)
+            {
+                // Insert Error Code!
+                return;
+            }
             SavePlacementData();
             // Insert "Save to File" Code!
             enterPlacementsPage.Visibility = Visibility.Hidden;
@@ -106,6 +131,31 @@ namespace TourneyScoreSystem
                     // Insert Error Code!
                     return;
                 }
+            }
+            List<string> names = new List<string>();
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible)
+                {
+                    string _name = "";
+                    if (collegeEvents[pageIndex].isTeamEvent)
+                    {
+                        Team _team = (Team)cb.SelectedItem;
+                        _name = _team.name;
+                    }
+                    else
+                    {
+                        Player _player = (Player)cb.SelectedItem;
+                        _name = _player.name;
+                    }
+                    names.Add(_name);
+                }
+            }
+            List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
+            if (text.Count != 0)
+            {
+                // Insert Error Code!
+                return;
             }
             SavePlacementData();
             pageIndex--;
@@ -121,6 +171,30 @@ namespace TourneyScoreSystem
                     return;
                 }
             }
+            List<string> names = new List<string>();
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible)
+                {
+                    string _name = "";
+                    if (collegeEvents[pageIndex].isTeamEvent)
+                    {
+                        Team _team = (Team)cb.SelectedItem;
+                        _name = _team.name;
+                    } else
+                    {
+                        Player _player = (Player)cb.SelectedItem;
+                        _name = _player.name;
+                    }
+                    names.Add(_name);
+                }
+            }
+            List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
+            if (text.Count != 0)
+            {
+                // Insert Error Code!
+                return;
+            }
             SavePlacementData();
             pageIndex++;
             LoadNextPlacement();
@@ -134,12 +208,19 @@ namespace TourneyScoreSystem
                 // Insert Error Code!
                 return;
             }
-            foreach (Team team in allTeams)
+            foreach (Player _player in allPlayers)
             {
-                if (comboTeamP.Text == team.teamName && team.players.Count == 5 && !team.players.Contains(allPlayers[pageIndex]))
+                if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
+                    // Insert Error Code!
                     return;
                 }
+            }
+            Team _team = (Team)comboTeamP.SelectedItem;
+            if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
+            {
+                // Insert Error Code!
+                return;
             }
             SavePlayerData();
             pageIndex = 0;
@@ -164,12 +245,19 @@ namespace TourneyScoreSystem
                 // Insert Error Code!
                 return;
             }
-            foreach (Team team in allTeams)
+            foreach (Player _player in allPlayers)
             {
-                if (comboTeamP.Text == team.teamName && team.players.Count == 5 && !team.players.Contains(allPlayers[pageIndex]))
+                if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
+                    // Insert Error Code!
                     return;
                 }
+            }
+            Team _team = (Team)comboTeamP.SelectedItem;
+            if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
+            {
+                // Insert Error Code!
+                return;
             }
             SavePlayerData();
             pageIndex--;
@@ -184,12 +272,19 @@ namespace TourneyScoreSystem
                 // Insert Error Code!
                 return;
             }
-            foreach (Team team in allTeams)
+            foreach (Player _player in allPlayers)
             {
-                if (comboTeamP.Text == team.teamName && team.players.Count == 5 && !team.players.Contains(allPlayers[pageIndex]))
+                if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
+                    // Insert Error Code!
                     return;
                 }
+            }
+            Team _team = (Team)comboTeamP.SelectedItem;
+            if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
+            {
+                // Insert Error Code!
+                return;
             }
             SavePlayerData();
             pageIndex++;
@@ -202,7 +297,17 @@ namespace TourneyScoreSystem
                 || (comboFifth.Visibility == Visibility.Visible && comboFifth.Text == ""))
             {
                 teamsErrorRect.Fill = Brushes.Red;
+                teamsErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (Team _team in allTeams)
+            {
+                if (teamName.Text == _team.name && _team.ID != pageIndex)
+                {
+                    teamsErrorRect.Fill = Brushes.Red;
+                    teamsErrorText.Text = "You Cannot Have Duplicate Team Names";
+                    return;
+                }
             }
             SaveTeamsData();
             pageIndex = 0;
@@ -262,7 +367,7 @@ namespace TourneyScoreSystem
             comboFourthP.DataContext = event4;
             comboFifthP.DataContext = event5;
             playersPrevBtn.Visibility = Visibility.Hidden;
-            comboTeamP.ItemsSource = new string[] { team1.teamName, team2.teamName, team3.teamName, team4.teamName };
+            comboTeamP.ItemsSource = allTeams;
             defineTeamsPage.Visibility = Visibility.Hidden;
             definePlayersPage.Visibility = Visibility.Visible;
         }
@@ -273,7 +378,17 @@ namespace TourneyScoreSystem
                 || (comboFifth.Visibility == Visibility.Visible && comboFifth.Text == ""))
             {
                 teamsErrorRect.Fill = Brushes.Red;
+                teamsErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (Team _team in allTeams)
+            {
+                if (teamName.Text == _team.name && _team.ID != pageIndex)
+                {
+                    teamsErrorRect.Fill = Brushes.Red;
+                    teamsErrorText.Text = "You Cannot Have Duplicate Team Names";
+                    return;
+                }
             }
             teamsErrorRect.Fill = Brushes.Transparent;
             SaveTeamsData();
@@ -287,7 +402,17 @@ namespace TourneyScoreSystem
                 || (comboFifth.Visibility == Visibility.Visible && comboFifth.Text == ""))
             {
                 teamsErrorRect.Fill = Brushes.Red;
+                teamsErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (Team _team in allTeams)
+            {
+                if (teamName.Text == _team.name && _team.ID != pageIndex)
+                {
+                    teamsErrorRect.Fill = Brushes.Red;
+                    teamsErrorText.Text = "You Cannot Have Duplicate Team Names";
+                    return;
+                }
             }
             teamsErrorRect.Fill = Brushes.Transparent;
             SaveTeamsData();
@@ -299,7 +424,17 @@ namespace TourneyScoreSystem
             if (eventTitle.Text == "" || comboTeam.Text == "")
             {
                 eventErrorRect.Fill = Brushes.Red;
+                eventErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (CollegeEvent _event in collegeEvents)
+            {
+                if (eventTitle.Text == _event.eventTitle && _event.ID != pageIndex)
+                {
+                    eventErrorRect.Fill = Brushes.Red;
+                    eventErrorText.Text = "You Cannot Have Duplicate Event Titles";
+                    return;
+                }
             }
             eventErrorRect.Fill = Brushes.Transparent;
             SaveEventData();
@@ -311,7 +446,17 @@ namespace TourneyScoreSystem
             if (eventTitle.Text == "" || comboTeam.Text == "")
             {
                 eventErrorRect.Fill = Brushes.Red;
+                eventErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (CollegeEvent _event in collegeEvents)
+            {
+                if (eventTitle.Text == _event.eventTitle && _event.ID != pageIndex)
+                {
+                    eventErrorRect.Fill = Brushes.Red;
+                    eventErrorText.Text = "You Cannot Have Duplicate Event Titles";
+                    return;
+                }
             }
             eventErrorRect.Fill = Brushes.Transparent;
             SaveEventData();
@@ -320,17 +465,27 @@ namespace TourneyScoreSystem
         }
         private void eventEndBtnClicked(object sender, RoutedEventArgs e)
         {
-            pageIndex = 0;
             if (eventTitle.Text == "" || comboTeam.Text == "")
             {
                 eventErrorRect.Fill = Brushes.Red;
+                eventErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
+            }
+            foreach (CollegeEvent _event in collegeEvents)
+            {
+                if (eventTitle.Text == _event.eventTitle && _event.ID != pageIndex)
+                {
+                    eventErrorRect.Fill = Brushes.Red;
+                    eventErrorText.Text = "You Cannot Have Duplicate Event Titles";
+                    return;
+                }
             }
             eventErrorRect.Fill = Brushes.Transparent;
             event5.eventTitle = eventTitle.Text;
             event5.isTeamEvent = comboTeam.Text == "Team";
             // Insert "Save to File" Code!
             int currRow = 4;
+            pageIndex = 0;
             if (event1.isTeamEvent)
             {
                 Grid.SetRow(comboFirstBlock, currRow);
@@ -390,62 +545,33 @@ namespace TourneyScoreSystem
         }
         public void SaveEventData()
         {
-            switch (pageIndex) // Saving Data to Variables
-            {
-                case 0: // First Event
-                    event1.eventTitle = eventTitle.Text;
-                    event1.isTeamEvent = comboTeam.Text == "Team";
-                    break;
-                case 1: // Second Event
-                    event2.eventTitle = eventTitle.Text;
-                    event2.isTeamEvent = comboTeam.Text == "Team";
-                    break;
-                case 2: // Third Event
-                    event3.eventTitle = eventTitle.Text;
-                    event3.isTeamEvent = comboTeam.Text == "Team";
-                    break;
-                case 3: // Fourth Event
-                    event4.eventTitle = eventTitle.Text;
-                    event4.isTeamEvent = comboTeam.Text == "Team";
-                    break;
-                case 4: // Fifth Event
-                    event5.eventTitle = eventTitle.Text;
-                    event5.isTeamEvent = comboTeam.Text == "Team";
-                    break;
-            }
+            collegeEvents[pageIndex].eventTitle = eventTitle.Text;
+            collegeEvents[pageIndex].isTeamEvent = comboTeam.Text == "Team";
         }
         public void LoadNextEvent()
         {
+            eventTitle.Text = collegeEvents[pageIndex].eventTitle;
+            comboTeam.Text = collegeEvents[pageIndex].isTeamEvent ? "Team" : "Individual";
             switch (pageIndex) // Loading Next Event
             {
                 case 0: // First Event
                     eventPrevBtn.Visibility = Visibility.Hidden;
                     eventHeading.Text = "1st Event";
-                    eventTitle.Text = event1.eventTitle;
-                    comboTeam.Text = event1.isTeamEvent ? "Team" : "Individual";
                     break;
                 case 1: // Second Event
                     eventPrevBtn.Visibility = Visibility.Visible;
                     eventHeading.Text = "2nd Event";
-                    eventTitle.Text = event2.eventTitle;
-                    comboTeam.Text = event2.isTeamEvent ? "Team" : "Individual";
                     break;
                 case 2: // Third Event
                     eventHeading.Text = "3rd Event";
-                    eventTitle.Text = event3.eventTitle;
-                    comboTeam.Text = event3.isTeamEvent ? "Team" : "Individual";
                     break;
                 case 3: // Fourth Event
                     eventNextBtn.Visibility = Visibility.Visible;
                     eventHeading.Text = "4th Event";
-                    eventTitle.Text = event4.eventTitle;
-                    comboTeam.Text = event4.isTeamEvent ? "Team" : "Individual";
                     break;
                 case 4: // Fifth Event
                     eventNextBtn.Visibility = Visibility.Hidden;
                     eventHeading.Text = "5th Event";
-                    eventTitle.Text = event5.eventTitle;
-                    comboTeam.Text = event5.isTeamEvent ? "Team" : "Individual";
                     break;
             }
         }
@@ -455,65 +581,34 @@ namespace TourneyScoreSystem
             {
                 _event.teams.Remove(allTeams[pageIndex]);
             }
-            switch (pageIndex)
+            allTeams[pageIndex].name = teamName.Text;
+            foreach (UIElement element in defineTeamsPage.Children)
             {
-                case 0:
-                    team1.teamName = teamName.Text;
-                    foreach (UIElement element in defineTeamsPage.Children)
-                    {
-                        if (element is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)element;
-                            CollegeEvent _event = (CollegeEvent)cb.DataContext;
-                            if (cb.Text == "Yes") { _event.teams.Add(team1); }
-                        }
-                    }
-                    break;
-                case 1:
-                    team2.teamName = teamName.Text;
-                    foreach (UIElement element in defineTeamsPage.Children)
-                    {
-                        if (element is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)element;
-                            CollegeEvent _event = (CollegeEvent)cb.DataContext;
-                            if (cb.Text == "Yes") { _event.teams.Add(team2); }
-                        }
-                    }
-                    break;
-                case 2:
-                    team3.teamName = teamName.Text;
-                    foreach (UIElement element in defineTeamsPage.Children)
-                    {
-                        if (element is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)element;
-                            CollegeEvent _event = (CollegeEvent)cb.DataContext;
-                            if (cb.Text == "Yes") { _event.teams.Add(team3); }
-                        }
-                    }
-                    break;
-                case 3:
-                    team4.teamName = teamName.Text;
-                    foreach (UIElement element in defineTeamsPage.Children)
-                    {
-                        if (element is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)element;
-                            CollegeEvent _event = (CollegeEvent)cb.DataContext;
-                            if (cb.Text == "Yes") { _event.teams.Add(team4); }
-                        }
-                    }
-                    break;
+                if (element is ComboBox)
+                {
+                    ComboBox cb = (ComboBox)element;
+                    CollegeEvent _event = (CollegeEvent)cb.DataContext;
+                    if (cb.Text == "Yes") { _event.teams.Add(allTeams[pageIndex]); }
+                }
             }
         }
         public void LoadNextTeam()
         {
+            teamName.Text = allTeams[pageIndex].name;
+            foreach (UIElement element in defineTeamsPage.Children)
+            {
+                if (element is ComboBox)
+                {
+                    ComboBox cb = (ComboBox)element;
+                    CollegeEvent _event = (CollegeEvent)cb.DataContext;
+                    if (_event.teams.Contains(allTeams[pageIndex])) { cb.Text = "Yes"; } else { cb.Text = "No"; }
+                }
+            }
             switch (pageIndex)
             {
                 case 0:
                     teamsPrevBtn.Visibility = Visibility.Hidden;
-                    teamName.Text = team1.teamName;
+                    teamName.Text = team1.name;
                     teamsHeading.Text = "1st Team";
                     foreach (UIElement element in defineTeamsPage.Children)
                     {
@@ -527,7 +622,7 @@ namespace TourneyScoreSystem
                     break;
                 case 1:
                     teamsPrevBtn.Visibility = Visibility.Visible;
-                    teamName.Text = team2.teamName;
+                    teamName.Text = team2.name;
                     teamsHeading.Text = "2nd Team";
                     foreach (UIElement element in defineTeamsPage.Children)
                     {
@@ -541,7 +636,7 @@ namespace TourneyScoreSystem
                     break;
                 case 2:
                     teamsNextBtn.Visibility = Visibility.Visible;
-                    teamName.Text = team3.teamName;
+                    teamName.Text = team3.name;
                     teamsHeading.Text = "3rd Team";
                     foreach (UIElement element in defineTeamsPage.Children)
                     {
@@ -555,7 +650,7 @@ namespace TourneyScoreSystem
                     break;
                 case 3:
                     teamsNextBtn.Visibility = Visibility.Hidden;
-                    teamName.Text = team4.teamName;
+                    teamName.Text = team4.name;
                     teamsHeading.Text = "4th Team";
                     foreach (UIElement element in defineTeamsPage.Children)
                     {
@@ -576,14 +671,8 @@ namespace TourneyScoreSystem
                 team.players.Remove(allPlayers[pageIndex]);
             }
             allPlayers[pageIndex].name = playerName.Text;
-            foreach (Team team in allTeams)
-            {
-                if (comboTeamP.Text == team.teamName)
-                {
-                    team.players.Add(allPlayers[pageIndex]);
-                    break;
-                }
-            }
+            Team _team = (Team)comboTeamP.SelectedItem;
+            _team.players.Add(allPlayers[pageIndex]);
             foreach (UIElement element in definePlayersPage.Children)
             {
                 if (element is ComboBox && element != comboTeamP)
@@ -628,7 +717,7 @@ namespace TourneyScoreSystem
                 comboTeamP.Text = "";
                 if (team.players.Contains(allPlayers[pageIndex]))
                 {
-                    comboTeamP.Text = team.teamName;
+                    comboTeamP.SelectedItem = team;
                     break;
                 }
             }
@@ -658,14 +747,9 @@ namespace TourneyScoreSystem
                 comboTexts[i].Visibility = Visibility.Visible;
                 comboBoxes[i].Visibility = Visibility.Visible;
             }
-            List<string> names = new List<string>();
-            foreach (Player player in collegeEvents[pageIndex].players)
-            {
-                names.Add(player.name);
-            }
             foreach (ComboBox cb in comboBoxes)
             {
-                cb.ItemsSource = names;
+                cb.ItemsSource = collegeEvents[pageIndex].players;
             }
             Grid.SetRow(stack1, 11);
             Grid.SetRow(stack2, 11);
@@ -681,7 +765,7 @@ namespace TourneyScoreSystem
             combo9B.Text = "2nd Place: ";
             combo12B.Text = "3rd Place: ";
             combo15B.Text = "4th Place: ";
-            switch(event1.teams.Count)
+            switch(collegeEvents[pageIndex].teams.Count)
             {
                 case 1:
                     combo6B.Visibility = Visibility.Visible;
@@ -720,14 +804,9 @@ namespace TourneyScoreSystem
                     Grid.SetRow(stack2, 9);
                     break;
             }
-            List<string> names = new List<string>();
-            foreach (Team team in collegeEvents[pageIndex].teams)
-            {
-                names.Add(team.teamName);
-            }
             foreach (ComboBox cb in comboBoxes)
             {
-                cb.ItemsSource = names;
+                cb.ItemsSource = collegeEvents[pageIndex].teams;
             }
         }
         public void SavePlacementData()
@@ -735,17 +814,11 @@ namespace TourneyScoreSystem
             if (collegeEvents[pageIndex].isTeamEvent)
             {
                 collegeEvents[pageIndex].teamRanking.Clear();
-                for (int i = 0; i < teamBoxes.Length; i++)
+                foreach (var (cb, i) in teamBoxes.Select((value, i) => (value, i)))
                 {
-                    if (teamBoxes[i].Visibility == Visibility.Visible)
+                    if (cb.Visibility == Visibility.Visible)
                     {
-                        foreach (Team team in collegeEvents[pageIndex].teams)
-                        {
-                            if (teamBoxes[i].Text == team.teamName)
-                            {
-                                collegeEvents[pageIndex].teamRanking.Add(i + 1, team);
-                            }
-                        }
+                        collegeEvents[pageIndex].teamRanking.Add(i + 1, (Team)cb.SelectedItem);
                     }
                 }
             }
@@ -756,19 +829,14 @@ namespace TourneyScoreSystem
                 {
                     if (cb.Visibility == Visibility.Visible)
                     {
-                        foreach (Player player in collegeEvents[pageIndex].players)
-                        {
-                            if (cb.Text == player.name)
-                            {
-                                collegeEvents[pageIndex].playerRanking.Add(i + 1, player);
-                            }
-                        }
+                        collegeEvents[pageIndex].playerRanking.Add(i + 1, (Player)cb.SelectedItem);
                     }
                 }
             }
         }
         public void LoadNextPlacement()
         {
+            placementsHeading.Text = collegeEvents[pageIndex].eventTitle;
             switch (pageIndex)
             {
                 case 0:
@@ -796,7 +864,7 @@ namespace TourneyScoreSystem
                 }
                 for (int i = 0; i < collegeEvents[pageIndex].teamRanking.Count; i++)
                 {
-                    teamBoxes[i].Text = collegeEvents[pageIndex].teamRanking[i + 1].teamName;
+                    teamBoxes[i].SelectedItem = collegeEvents[pageIndex].teamRanking[i + 1];
                 }
             }
             else
@@ -811,7 +879,7 @@ namespace TourneyScoreSystem
                 }
                 for (int i = 0; i < collegeEvents[pageIndex].playerRanking.Count; i++)
                 {
-                    comboBoxes[i].Text = collegeEvents[pageIndex].playerRanking[i + 1].name;
+                    comboBoxes[i].SelectedItem = collegeEvents[pageIndex].playerRanking[i + 1];
                 }
             }
         }

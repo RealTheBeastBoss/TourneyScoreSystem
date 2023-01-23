@@ -138,7 +138,7 @@
                    Grid.ColumnSpan="2" Margin="0,0,0,20" />
             <TextBlock x:Name="playersHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="1st Participant" 
                    HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,20" />
-            <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Participant Name: " 
+            <TextBlock Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="Participant Name/ID: " 
                    HorizontalAlignment="Right" />
             <TextBox x:Name="playerName" Grid.Column="2" Grid.Row="3" FontSize="28" Width="240" 
                  HorizontalAlignment="Left" Margin="10,0,0,20" />
@@ -294,8 +294,9 @@
             </StackPanel>
             <StackPanel x:Name="stack2" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="6" Orientation="Horizontal" 
                         HorizontalAlignment="Center">
-                <Button x:Name="placementPrevBtn" Content="Previous" Width="250" Height="42" Margin="0,0,20,0" />
-                <Button x:Name="placementNextBtn" Content="Next" Width="250" Height="42" />
+                <Button x:Name="placementPrevBtn" Content="Previous" Width="250" Height="42" Margin="0,0,20,0" 
+                        Click="placementsPrevBtnClicked" />
+                <Button x:Name="placementNextBtn" Content="Next" Width="250" Height="42" Click="placementsNextBtnClicked" />
             </StackPanel>
         </Grid>
     </Canvas>

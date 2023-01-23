@@ -55,6 +55,7 @@ namespace TourneyScoreSystem
             player14, player15, player16, player17, player18, player19, player20 };
         public static ComboBox[] comboBoxes;
         public static TextBlock[] comboTexts;
+        public static ComboBox[] teamBoxes;
         public static int pageIndex = 0;
         public MainWindow() // Runs when loading
         {
@@ -62,6 +63,7 @@ namespace TourneyScoreSystem
             comboBoxes = new ComboBox[] { combo1, combo2, combo3, combo4, combo5, combo6, combo7, combo8, combo9, combo10, combo11, combo12, combo13, combo14, combo15, combo16, combo17, combo18, combo19, combo20};
             comboTexts = new TextBlock[] { combo1B, combo2B, combo3B, combo4B, combo5B, combo6B, combo7B, combo8B, combo9B, combo10B, combo11B, combo12B, combo13B, combo14B, combo15B, combo16B, combo17B, combo18B, 
                 combo19B, combo20B };
+            teamBoxes = new ComboBox[] { combo6, combo9, combo12, combo15 };
             comboTeam.ItemsSource = new string[] { "Individual", "Team" }; // Provides the values for the combo box
             comboFirst.ItemsSource = new string[] { "Yes", "No" }; // Provides the values for the combo box
             comboSecond.ItemsSource = new string[] { "Yes", "No" }; // Provides the values for the combo box
@@ -80,6 +82,48 @@ namespace TourneyScoreSystem
             definePlayersPage.Visibility = Visibility.Hidden; // Temporary
             enterPlacementsPage.Visibility = Visibility.Hidden; // Temporary
             teamsErrorRect.Fill = Brushes.Transparent; // Temporary
+        }
+        private void placementsEndBtnClicked(object sender, RoutedEventArgs e)
+        {
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible && cb.Text == "")
+                {
+                    // Insert Error Code!
+                    return;
+                }
+            }
+            SavePlacementData();
+            // Insert "Save to File" Code!
+            enterPlacementsPage.Visibility = Visibility.Hidden;
+        }
+        private void placementsPrevBtnClicked(object sender, RoutedEventArgs e)
+        {
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible && cb.Text == "")
+                {
+                    // Insert Error Code!
+                    return;
+                }
+            }
+            SavePlacementData();
+            pageIndex--;
+            LoadNextPlacement();
+        }
+        private void placementsNextBtnClicked(object sender, RoutedEventArgs e)
+        {
+            foreach (ComboBox cb in comboBoxes)
+            {
+                if (cb.Visibility == Visibility.Visible && cb.Text == "")
+                {
+                    // Insert Error Code!
+                    return;
+                }
+            }
+            SavePlacementData();
+            pageIndex++;
+            LoadNextPlacement();
         }
         private void playersEndBtnClicked(object sender, RoutedEventArgs e)
         {
@@ -107,6 +151,7 @@ namespace TourneyScoreSystem
             {
                 AddIndividualPlacements();
             }
+            placementPrevBtn.Visibility = Visibility.Hidden;
             definePlayersPage.Visibility = Visibility.Hidden;
             enterPlacementsPage.Visibility = Visibility.Visible;
         }
@@ -599,14 +644,39 @@ namespace TourneyScoreSystem
         }
         public void AddIndividualPlacements()
         {
-            for (int i = 0; i < event1.players.Count; i++)
+            for (int i = 0; i < comboBoxes.Length; i++)
+            {
+                comboBoxes[i].Visibility = Visibility.Hidden;
+                comboTexts[i].Visibility = Visibility.Hidden;
+            }
+            combo6B.Text = "6th Place: ";
+            combo9B.Text = "9th Place: ";
+            combo12B.Text = "12th Place: ";
+            combo15B.Text = "15th Place: ";
+            for (int i = 0; i < collegeEvents[pageIndex].players.Count; i++)
             {
                 comboTexts[i].Visibility = Visibility.Visible;
                 comboBoxes[i].Visibility = Visibility.Visible;
             }
+            List<string> names = new List<string>();
+            foreach (Player player in collegeEvents[pageIndex].players)
+            {
+                names.Add(player.name);
+            }
+            foreach (ComboBox cb in comboBoxes)
+            {
+                cb.ItemsSource = names;
+            }
+            Grid.SetRow(stack1, 11);
+            Grid.SetRow(stack2, 11);
         }
         public void AddTeamPlacements()
         {
+            for (int i = 0; i < comboBoxes.Length; i++)
+            {
+                comboBoxes[i].Visibility = Visibility.Hidden;
+                comboTexts[i].Visibility = Visibility.Hidden;
+            }
             combo6B.Text = "1st Place: ";
             combo9B.Text = "2nd Place: ";
             combo12B.Text = "3rd Place: ";
@@ -649,6 +719,100 @@ namespace TourneyScoreSystem
                     Grid.SetRow(stack1, 9);
                     Grid.SetRow(stack2, 9);
                     break;
+            }
+            List<string> names = new List<string>();
+            foreach (Team team in collegeEvents[pageIndex].teams)
+            {
+                names.Add(team.teamName);
+            }
+            foreach (ComboBox cb in comboBoxes)
+            {
+                cb.ItemsSource = names;
+            }
+        }
+        public void SavePlacementData()
+        {
+            if (collegeEvents[pageIndex].isTeamEvent)
+            {
+                collegeEvents[pageIndex].teamRanking.Clear();
+                for (int i = 0; i < teamBoxes.Length; i++)
+                {
+                    if (teamBoxes[i].Visibility == Visibility.Visible)
+                    {
+                        foreach (Team team in collegeEvents[pageIndex].teams)
+                        {
+                            if (teamBoxes[i].Text == team.teamName)
+                            {
+                                collegeEvents[pageIndex].teamRanking.Add(i + 1, team);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                collegeEvents[pageIndex].playerRanking.Clear();
+                foreach (var (cb, i) in comboBoxes.Select((value, i) => (value, i)))
+                {
+                    if (cb.Visibility == Visibility.Visible)
+                    {
+                        foreach (Player player in collegeEvents[pageIndex].players)
+                        {
+                            if (cb.Text == player.name)
+                            {
+                                collegeEvents[pageIndex].playerRanking.Add(i + 1, player);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void LoadNextPlacement()
+        {
+            switch (pageIndex)
+            {
+                case 0:
+                    placementPrevBtn.Visibility = Visibility.Hidden;
+                    break;
+                case 1:
+                    placementPrevBtn.Visibility = Visibility.Visible;
+                    break;
+                case 3:
+                    placementNextBtn.Visibility = Visibility.Visible;
+                    break;
+                case 4:
+                    placementNextBtn.Visibility = Visibility.Hidden;
+                    break;
+            }
+            if (collegeEvents[pageIndex].isTeamEvent)
+            {
+                AddTeamPlacements();
+                if (collegeEvents[pageIndex].teamRanking.Count == 0)
+                {
+                    foreach (ComboBox cb in teamBoxes)
+                    {
+                        cb.Text = "";
+                    }
+                }
+                for (int i = 0; i < collegeEvents[pageIndex].teamRanking.Count; i++)
+                {
+                    teamBoxes[i].Text = collegeEvents[pageIndex].teamRanking[i + 1].teamName;
+                }
+            }
+            else
+            {
+                AddIndividualPlacements();
+                if (collegeEvents[pageIndex].playerRanking.Count == 0)
+                {
+                    foreach (ComboBox cb in comboBoxes)
+                    {
+                        cb.Text = "";
+                    }
+                }
+                for (int i = 0; i < collegeEvents[pageIndex].playerRanking.Count; i++)
+                {
+                    comboBoxes[i].Text = collegeEvents[pageIndex].playerRanking[i + 1].name;
+                }
             }
         }
     }

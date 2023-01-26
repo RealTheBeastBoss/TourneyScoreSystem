@@ -13,6 +13,8 @@ namespace TourneyScoreSystem
         public List<Player> players = new List<Player>();
         public Dictionary<int, Player> playerRanking = new Dictionary<int, Player>();
         public Dictionary<int, Team> teamRanking = new Dictionary<int, Team>();
+        public List<(Team, int, int)> teamOrderPoints = new List<(Team, int, int)>();
+        public List<(Player, int, int)> playerOrderPoints = new List<(Player, int, int)>();
 
         public CollegeEvent(int _ID)
         {

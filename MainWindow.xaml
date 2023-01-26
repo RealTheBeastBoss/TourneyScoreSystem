@@ -180,7 +180,7 @@
             <Button x:Name="playersNextBtn" Grid.Column="2" Grid.Row="10" Content="Next" Width="250" Height="42" 
                 HorizontalAlignment="Left" Margin="10,0,0,10" Click="playersNextBtnClicked" />
         </Grid>
-        <Grid x:Name="enterPlacementsPage" Height="720" Width="1280">
+        <Grid x:Name="enterPlacementsPage" Height="720" Width="1280" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="160" />
@@ -416,7 +416,7 @@
             <StackPanel x:Name="stack1" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="6" Orientation="Horizontal" 
                         HorizontalAlignment="Center">
                 <Button Width="250" Height="42" Margin="0,0,20,0" Visibility="Hidden" />
-                <Button x:Name="placementEndBtn" Content="Finished Entering Placements!" Width="250" Height="42" />
+                <Button x:Name="placementEndBtn" Content="Finished Entering Placements!" Width="250" Height="42" Click="placementsEndBtnClicked" />
             </StackPanel>
             <StackPanel x:Name="stack2" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="6" Orientation="Horizontal" 
                         HorizontalAlignment="Center">
@@ -424,6 +424,878 @@
                         Click="placementsPrevBtnClicked" />
                 <Button x:Name="placementNextBtn" Content="Next" Width="250" Height="42" Click="placementsNextBtnClicked" />
             </StackPanel>
+        </Grid>
+        <Grid x:Name="displayTeamRanking" DataContext="Team Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock Grid.Column="1" Grid.Row="2" FontSize="32" Text="Team Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,0,0,20" />
+            <TextBlock x:Name="team1stPlacementT" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" Text="1st Place: " 
+                       HorizontalAlignment="Right" Margin="0,80,0,0"/>
+            <TextBlock x:Name="team1stPlacement" Grid.Column="2" Grid.Row="3" FontSize="30" Text="Team A, 300pts" HorizontalAlignment="Left" 
+                       Margin="0,80,0,0" />
+            <TextBlock x:Name="team2ndPlacementT" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" Text="2nd Place: " 
+                       HorizontalAlignment="Right" Margin="0,0,0,10" />
+            <TextBlock x:Name="team2ndPlacement" Grid.Column="2" Grid.Row="4" FontSize="30" Text="Team B, 240pts" />
+            <TextBlock x:Name="team3rdPlacementT" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" Text="3rd Place: " 
+                       HorizontalAlignment="Right" Margin="0,0,0,10" />
+            <TextBlock x:Name="team3rdPlacement" Grid.Column="2" Grid.Row="5" FontSize="30" Text="Team C, 190pts" />
+            <TextBlock x:Name="team4thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" Text="4th Place: " 
+                       HorizontalAlignment="Right" Margin="0,0,0,10" />
+            <TextBlock x:Name="team4thPlacement" Grid.Column="2" Grid.Row="6" FontSize="30" Text="Team D, 120pts" />
+        </Grid>
+        <Grid x:Name="displayParticipantRanking" DataContext="Participant Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock Grid.Column="1" Grid.Row="2" FontSize="32" Text="Participant Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="player1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" />
+            <TextBlock x:Name="player1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" />
+            <TextBlock x:Name="player2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" />
+            <TextBlock x:Name="player2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" />
+            <TextBlock x:Name="player3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" />
+            <TextBlock x:Name="player3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" />
+            <TextBlock x:Name="player4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" />
+            <TextBlock x:Name="player4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" />
+            <TextBlock x:Name="player5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" />
+            <TextBlock x:Name="player6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" />
+            <TextBlock x:Name="player6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" />
+            <TextBlock x:Name="player7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" />
+            <TextBlock x:Name="player8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" />
+            <TextBlock x:Name="player9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" />
+            <TextBlock x:Name="player9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" />
+            <TextBlock x:Name="player10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" />
+            <TextBlock x:Name="player11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" />
+            <TextBlock x:Name="player12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" />
+            <TextBlock x:Name="player12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" />
+            <TextBlock x:Name="player13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" />
+            <TextBlock x:Name="player14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" />
+            <TextBlock x:Name="player15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" />
+            <TextBlock x:Name="player15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" />
+            <TextBlock x:Name="player16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" />
+            <TextBlock x:Name="player17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" />
+            <TextBlock x:Name="player18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" />
+            <TextBlock x:Name="player18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" />
+            <TextBlock x:Name="player19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" />
+            <TextBlock x:Name="player20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" />
+            <TextBlock x:Name="player20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" />
+        </Grid>
+        <Grid x:Name="displayEvent1Ranking" DataContext="Event1 Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1Heading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="Event1 Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="event1_1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1_6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1_9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1_12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1_15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event1_18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event1_20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event1_20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" Visibility="Hidden" />
+        </Grid>
+        <Grid x:Name="displayEvent2Ranking" DataContext="Event2 Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2Heading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="event2 Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="event2_1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2_6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2_9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2_12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2_15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event2_18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event2_20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event2_20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" Visibility="Hidden" />
+        </Grid>
+        <Grid x:Name="displayEvent3Ranking" DataContext="Event3 Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3Heading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="event3 Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="event3_1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3_6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3_9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3_12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3_15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event3_18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event3_20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event3_20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" Visibility="Hidden" />
+        </Grid>
+        <Grid x:Name="displayEvent4Ranking" DataContext="Event4 Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4Heading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="event4 Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="event4_1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4_6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4_9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4_12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4_15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event4_18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event4_20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event4_20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" Visibility="Hidden" />
+        </Grid>
+        <Grid x:Name="displayEvent5Ranking" DataContext="Event5 Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5Heading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="event5 Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="event5_1stPlacementT" Grid.Column="1" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="1st: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_1stPlacement" Grid.Column="2" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 1, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_2ndPlacementT" Grid.Column="5" Grid.Row="1" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="2nd: " Margin="0,20,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_2ndPlacement" Grid.Column="6" Grid.Row="1" FontSize="26" HorizontalAlignment="Left" Margin="0,20,0,0"
+                       Text="Player 2, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_3rdPlacementT" Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="3rd: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_3rdPlacement" Grid.Column="2" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 3, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_4thPlacementT" Grid.Column="5" Grid.Row="2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="4th: " Margin="0,5,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_4thPlacement" Grid.Column="6" Grid.Row="2" FontSize="26" HorizontalAlignment="Left" Margin="0,5,0,0"
+                       Text="Player 4, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_5thPlacementT" Grid.Column="1" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="5th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_5thPlacement" Grid.Column="2" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 5, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_6thPlacementT" Grid.Column="5" Grid.Row="3" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="6th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5_6thPlacement" Grid.Column="6" Grid.Row="3" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 6, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_7thPlacementT" Grid.Column="1" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="7th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_7thPlacement" Grid.Column="2" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 7, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_8thPlacementT" Grid.Column="3" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="8th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_8thPlacement" Grid.Column="4" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 8, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_9thPlacementT" Grid.Column="5" Grid.Row="4" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="9th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5_9thPlacement" Grid.Column="6" Grid.Row="4" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 9, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_10thPlacementT" Grid.Column="1" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="10th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_10thPlacement" Grid.Column="2" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 10, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_11thPlacementT" Grid.Column="3" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="11th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_11thPlacement" Grid.Column="4" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 11, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_12thPlacementT" Grid.Column="5" Grid.Row="5" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="12th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5_12thPlacement" Grid.Column="6" Grid.Row="5" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 12, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_13thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="13th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_13thPlacement" Grid.Column="2" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 13, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_14thPlacementT" Grid.Column="3" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="14th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_14thPlacement" Grid.Column="4" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 14, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_15thPlacementT" Grid.Column="5" Grid.Row="6" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="15th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5_15thPlacement" Grid.Column="6" Grid.Row="6" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 15, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_16thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="16th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_16thPlacement" Grid.Column="2" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 16, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_17thPlacementT" Grid.Column="3" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="17th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_17thPlacement" Grid.Column="4" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 17, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_18thPlacementT" Grid.Column="5" Grid.Row="7" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="18th: " Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="event5_18thPlacement" Grid.Column="6" Grid.Row="7" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 18, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_19thPlacementT" Grid.Column="1" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="19th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_19thPlacement" Grid.Column="2" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 19, 444pts" Visibility="Hidden" />
+            <TextBlock x:Name="event5_20thPlacementT" Grid.Column="3" Grid.Row="8" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right"
+                       Text="20th: " Margin="0,0,0,0" Visibility="Hidden" />
+            <TextBlock x:Name="event5_20thPlacement" Grid.Column="4" Grid.Row="8" FontSize="26" HorizontalAlignment="Left" Margin="0,0,0,20"
+                       Text="Player 20, 444pts" Visibility="Hidden" />
+        </Grid>
+        <Grid x:Name="displayTeamARanking" DataContext="TeamA Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="teamAHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="TeamA Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="teamA1stPlacementT" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="1st Place: " Margin="0,70,0,0" />
+            <TextBlock x:Name="teamA1stPlacement" Grid.Column="2" Grid.Row="3" FontSize="30" HorizontalAlignment="Left" Text="Player 1, 444pts" 
+                       Margin="0,70,0,20" />
+            <TextBlock x:Name="teamA2ndPlacementT" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="2nd Place: " />
+            <TextBlock x:Name="teamA2ndPlacement" Grid.Column="2" Grid.Row="4" FontSize="30" HorizontalAlignment="Left" Text="Player 2, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamA3rdPlacementT" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="3rd Place: " />
+            <TextBlock x:Name="teamA3rdPlacement" Grid.Column="2" Grid.Row="5" FontSize="30" HorizontalAlignment="Left" Text="Player 3, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamA4thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="4th Place: " />
+            <TextBlock x:Name="teamA4thPlacement" Grid.Column="2" Grid.Row="6" FontSize="30" HorizontalAlignment="Left" Text="Player 4, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamA5thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="5th Place: " />
+            <TextBlock x:Name="teamA5thPlacement" Grid.Column="2" Grid.Row="7" FontSize="30" HorizontalAlignment="Left" Text="Player 5, 444pts" 
+                       Margin="0,0,0,20" />
+        </Grid>
+        <Grid x:Name="displayTeamBRanking" DataContext="TeamB Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="teamBHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="TeamB Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="teamB1stPlacementT" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="1st Place: " Margin="0,70,0,0" />
+            <TextBlock x:Name="teamB1stPlacement" Grid.Column="2" Grid.Row="3" FontSize="30" HorizontalAlignment="Left" Text="Player 1, 444pts" 
+                       Margin="0,70,0,20" />
+            <TextBlock x:Name="teamB2ndPlacementT" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="2nd Place: " />
+            <TextBlock x:Name="teamB2ndPlacement" Grid.Column="2" Grid.Row="4" FontSize="30" HorizontalAlignment="Left" Text="Player 2, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamB3rdPlacementT" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="3rd Place: " />
+            <TextBlock x:Name="teamB3rdPlacement" Grid.Column="2" Grid.Row="5" FontSize="30" HorizontalAlignment="Left" Text="Player 3, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamB4thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="4th Place: " />
+            <TextBlock x:Name="teamB4thPlacement" Grid.Column="2" Grid.Row="6" FontSize="30" HorizontalAlignment="Left" Text="Player 4, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamB5thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="5th Place: " />
+            <TextBlock x:Name="teamB5thPlacement" Grid.Column="2" Grid.Row="7" FontSize="30" HorizontalAlignment="Left" Text="Player 5, 444pts" 
+                       Margin="0,0,0,20" />
+        </Grid>
+        <Grid x:Name="displayTeamCRanking" DataContext="TeamC Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="teamCHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="TeamC Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="teamC1stPlacementT" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="1st Place: " Margin="0,70,0,0" />
+            <TextBlock x:Name="teamC1stPlacement" Grid.Column="2" Grid.Row="3" FontSize="30" HorizontalAlignment="Left" Text="Player 1, 444pts" 
+                       Margin="0,70,0,20" />
+            <TextBlock x:Name="teamC2ndPlacementT" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="2nd Place: " />
+            <TextBlock x:Name="teamC2ndPlacement" Grid.Column="2" Grid.Row="4" FontSize="30" HorizontalAlignment="Left" Text="Player 2, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamC3rdPlacementT" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="3rd Place: " />
+            <TextBlock x:Name="teamC3rdPlacement" Grid.Column="2" Grid.Row="5" FontSize="30" HorizontalAlignment="Left" Text="Player 3, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamC4thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="4th Place: " />
+            <TextBlock x:Name="teamC4thPlacement" Grid.Column="2" Grid.Row="6" FontSize="30" HorizontalAlignment="Left" Text="Player 4, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamC5thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="5th Place: " />
+            <TextBlock x:Name="teamC5thPlacement" Grid.Column="2" Grid.Row="7" FontSize="30" HorizontalAlignment="Left" Text="Player 5, 444pts" 
+                       Margin="0,0,0,20" />
+        </Grid>
+        <Grid x:Name="displayTeamDRanking" DataContext="TeamD Ranking" Width="1280" Height="720" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="6" Margin="0,0,0,20" Visibility="Hidden" />
+            <TextBlock x:Name="teamDHeading" Grid.Column="1" Grid.Row="2" FontSize="32" Text="TeamD Ranking" 
+                   HorizontalAlignment="Center" Grid.ColumnSpan="6" Margin="0,0,0,20" />
+            <TextBlock x:Name="teamD1stPlacementT" Grid.Column="1" Grid.Row="3" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="1st Place: " Margin="0,70,0,0" />
+            <TextBlock x:Name="teamD1stPlacement" Grid.Column="2" Grid.Row="3" FontSize="30" HorizontalAlignment="Left" Text="Player 1, 444pts" 
+                       Margin="0,70,0,20" />
+            <TextBlock x:Name="teamD2ndPlacementT" Grid.Column="1" Grid.Row="4" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="2nd Place: " />
+            <TextBlock x:Name="teamD2ndPlacement" Grid.Column="2" Grid.Row="4" FontSize="30" HorizontalAlignment="Left" Text="Player 2, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamD3rdPlacementT" Grid.Column="1" Grid.Row="5" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="3rd Place: " />
+            <TextBlock x:Name="teamD3rdPlacement" Grid.Column="2" Grid.Row="5" FontSize="30" HorizontalAlignment="Left" Text="Player 3, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamD4thPlacementT" Grid.Column="1" Grid.Row="6" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="4th Place: " />
+            <TextBlock x:Name="teamD4thPlacement" Grid.Column="2" Grid.Row="6" FontSize="30" HorizontalAlignment="Left" Text="Player 4, 444pts" 
+                       Margin="0,0,0,20" />
+            <TextBlock x:Name="teamD5thPlacementT" Grid.Column="1" Grid.Row="7" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" 
+                       Text="5th Place: " />
+            <TextBlock x:Name="teamD5thPlacement" Grid.Column="2" Grid.Row="7" FontSize="30" HorizontalAlignment="Left" Text="Player 5, 444pts" 
+                       Margin="0,0,0,20" />
+        </Grid>
+        <Grid x:Name="displayModeGrid" Width="1280" Height="720">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="1" FontSize="42" Text="Display Rankings" HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2" Margin="0,0,0,20" />
+            <TextBlock Grid.Column="0" Grid.Row="2" FontSize="26" FontWeight="Bold" Text="Display Mode: "
+                       HorizontalAlignment="Right" Margin="0,80,0,0" />
+            <ComboBox x:Name="comboDisplay" Grid.Column="1" Grid.Row="2" FontSize="22" Width="220" Height="42" HorizontalAlignment="Left"
+                     Margin="0,0,0,420" SelectionChanged="displayBoxChanged" />
         </Grid>
     </Canvas>
 </Window>

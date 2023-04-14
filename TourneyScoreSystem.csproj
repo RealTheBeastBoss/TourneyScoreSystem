@@ -6,4 +6,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Define Events.png" />
+    <None Remove="Define Players.png" />
+    <None Remove="Define Teams.png" />
+    <None Remove="Display Rankings.png" />
+    <None Remove="Enter Placements.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Define Events.png" />
+    <Resource Include="Define Players.png" />
+    <Resource Include="Define Teams.png" />
+    <Resource Include="Display Rankings.png" />
+    <Resource Include="Enter Placements.png" />
+  </ItemGroup>
+
 </Project>

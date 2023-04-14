@@ -164,16 +164,6 @@ namespace TourneyScoreSystem
             comboThirdP.ItemsSource = new string[] { "Yes", "No" }; // Provides the values for the combo box
             comboFourthP.ItemsSource = new string[] { "Yes", "No" }; // Provides the values for the combo box
             comboFifthP.ItemsSource = new string[] { "Yes", "No" }; // Provides the values for the combo box
-            eventPrevBtn.Visibility = Visibility.Hidden; // Temporary
-            eventErrorRect.Fill = Brushes.Transparent; // Temporary
-            defineEventPage.Visibility = Visibility.Visible; // Temporary
-            defineTeamsPage.Visibility = Visibility.Hidden; // Temporary
-            definePlayersPage.Visibility = Visibility.Hidden; // Temporary
-            enterPlacementsPage.Visibility = Visibility.Hidden; // Temporary
-            displayTeamRanking.Visibility = Visibility.Hidden; // Temporary
-            displayParticipantRanking.Visibility = Visibility.Hidden; // Temporary
-            displayModeGrid.Visibility = Visibility.Hidden; // Temporary
-            teamsErrorRect.Fill = Brushes.Transparent; // Temporary
         }
         private void displayBoxChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -195,7 +185,8 @@ namespace TourneyScoreSystem
             {
                 if (cb.Visibility == Visibility.Visible && cb.Text == "")
                 {
-                    // Insert Error Code!
+                    placementErrorRect.Fill = Brushes.Red;
+                    placementErrorText.Text = "You Must Enter Values for all Fields to Continue";
                     return;
                 }
             }
@@ -221,9 +212,11 @@ namespace TourneyScoreSystem
             List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
             if (text.Count != 0)
             {
-                // Insert Error Code!
+                placementErrorRect.Fill = Brushes.Red;
+                placementErrorText.Text = "You Cannot Have Duplicate Placements";
                 return;
             }
+            placementErrorRect.Fill = Brushes.Transparent;
             SavePlacementData();
             CalculatePoints();
             // Insert "Save to File" Code!
@@ -236,7 +229,8 @@ namespace TourneyScoreSystem
             {
                 if (cb.Visibility == Visibility.Visible && cb.Text == "")
                 {
-                    // Insert Error Code!
+                    placementErrorRect.Fill = Brushes.Red;
+                    placementErrorText.Text = "You Must Enter Values for all Fields to Continue";
                     return;
                 }
             }
@@ -262,9 +256,11 @@ namespace TourneyScoreSystem
             List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
             if (text.Count != 0)
             {
-                // Insert Error Code!
+                placementErrorRect.Fill = Brushes.Red;
+                placementErrorText.Text = "You Cannot Have Duplicate Placements";
                 return;
             }
+            placementErrorRect.Fill = Brushes.Transparent;
             SavePlacementData();
             pageIndex--;
             LoadNextPlacement();
@@ -275,7 +271,8 @@ namespace TourneyScoreSystem
             {
                 if (cb.Visibility == Visibility.Visible && cb.Text == "")
                 {
-                    // Insert Error Code!
+                    placementErrorRect.Fill = Brushes.Red;
+                    placementErrorText.Text = "You Must Enter Values for all Fields to Continue";
                     return;
                 }
             }
@@ -300,9 +297,11 @@ namespace TourneyScoreSystem
             List<string> text = names.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList();
             if (text.Count != 0)
             {
-                // Insert Error Code!
+                placementErrorRect.Fill = Brushes.Red;
+                placementErrorText.Text = "You Cannot Have Duplicate Placements";
                 return;
             }
+            placementErrorRect.Fill = Brushes.Transparent;
             SavePlacementData();
             pageIndex++;
             LoadNextPlacement();
@@ -313,23 +312,27 @@ namespace TourneyScoreSystem
                 && comboSecondP.Text == "") || (comboThirdP.Visibility == Visibility.Visible && comboThirdP.Text == "") || (comboFourthP.Visibility == Visibility.Visible && comboFourthP.Text == "")
                 || (comboFifthP.Visibility == Visibility.Visible && comboFifthP.Text == ""))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
             }
             foreach (Player _player in allPlayers)
             {
                 if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
-                    // Insert Error Code!
+                    playerErrorRect.Fill = Brushes.Red;
+                    playerErrorText.Text = "You Cannot Have Duplicate Participant IDs";
                     return;
                 }
             }
             Team _team = (Team)comboTeamP.SelectedItem;
             if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "This Team Is Full";
                 return;
             }
+            playerErrorRect.Fill = Brushes.Transparent;
             SavePlayerData();
             pageIndex = 0;
             // Insert "Save to File" Code!
@@ -350,23 +353,27 @@ namespace TourneyScoreSystem
                 && comboSecondP.Text == "") || (comboThirdP.Visibility == Visibility.Visible && comboThirdP.Text == "") || (comboFourthP.Visibility == Visibility.Visible && comboFourthP.Text == "")
                 || (comboFifthP.Visibility == Visibility.Visible && comboFifthP.Text == ""))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
             }
             foreach (Player _player in allPlayers)
             {
                 if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
-                    // Insert Error Code!
+                    playerErrorRect.Fill = Brushes.Red;
+                    playerErrorText.Text = "You Cannot Have Duplicate Participant IDs";
                     return;
                 }
             }
             Team _team = (Team)comboTeamP.SelectedItem;
             if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "This Team Is Full";
                 return;
             }
+            playerErrorRect.Fill = Brushes.Transparent;
             SavePlayerData();
             pageIndex--;
             LoadNextPlayer();
@@ -377,23 +384,27 @@ namespace TourneyScoreSystem
                 && comboSecondP.Text == "") || (comboThirdP.Visibility == Visibility.Visible && comboThirdP.Text == "") || (comboFourthP.Visibility == Visibility.Visible && comboFourthP.Text == "")
                 || (comboFifthP.Visibility == Visibility.Visible && comboFifthP.Text == ""))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "You Must Enter Values for all Fields to Continue";
                 return;
             }
             foreach (Player _player in allPlayers)
             {
                 if (playerName.Text == _player.name && _player.ID != pageIndex)
                 {
-                    // Insert Error Code!
+                    playerErrorRect.Fill = Brushes.Red;
+                    playerErrorText.Text = "You Cannot Have Duplicate Participant IDs";
                     return;
                 }
             }
             Team _team = (Team)comboTeamP.SelectedItem;
             if (_team.players.Count == 5 && !_team.players.Contains(allPlayers[pageIndex]))
             {
-                // Insert Error Code!
+                playerErrorRect.Fill = Brushes.Red;
+                playerErrorText.Text = "This Team Is Full";
                 return;
             }
+            playerErrorRect.Fill = Brushes.Transparent;
             SavePlayerData();
             pageIndex++;
             LoadNextPlayer();
@@ -417,6 +428,7 @@ namespace TourneyScoreSystem
                     return;
                 }
             }
+            teamsErrorRect.Fill = Brushes.Transparent;
             SaveTeamsData();
             pageIndex = 0;
             // Insert "Save to File" Code!
@@ -1123,6 +1135,20 @@ namespace TourneyScoreSystem
                 TextBlock[] rankings = new TextBlock[] { event1_8thPlacement, event1_11thPlacement, event1_14thPlacement, event1_17thPlacement };
                 TextBlock[] rankingTexts = new TextBlock[] { event1_8thPlacementT, event1_11thPlacementT, event1_14thPlacementT, event1_17thPlacementT };
                 // Change Grid Layout:
+                Thickness left = event1Border1.Margin;
+                left.Right = 220;
+                Thickness right = event1Border2.Margin;
+                right.Left = 220;
+                event1Border1.SetValue(Grid.ColumnSpanProperty, 4);
+                event1Border1.Margin = left;
+                event1Border2.SetValue(Grid.ColumnSpanProperty, 4);
+                event1Border2.SetValue(Grid.ColumnProperty, 4);
+                event1Border2.Margin = right;
+                event1Border3.SetValue(Grid.ColumnSpanProperty, 4);
+                event1Border3.Margin = left;
+                event1Border4.SetValue(Grid.ColumnSpanProperty, 4);
+                event1Border4.Margin = right;
+                event1Border4.SetValue(Grid.ColumnProperty, 4);
                 foreach (ColumnDefinition column in displayEvent1Ranking.ColumnDefinitions)
                 {
                     column.Width = new GridLength(1, GridUnitType.Star);
@@ -1183,6 +1209,20 @@ namespace TourneyScoreSystem
                 TextBlock[] rankings = new TextBlock[] { event2_8thPlacement, event2_11thPlacement, event2_14thPlacement, event2_17thPlacement };
                 TextBlock[] rankingTexts = new TextBlock[] { event2_8thPlacementT, event2_11thPlacementT, event2_14thPlacementT, event2_17thPlacementT };
                 // Change Grid Layout:
+                Thickness left = event2Border1.Margin;
+                left.Right = 220;
+                Thickness right = event2Border2.Margin;
+                right.Left = 220;
+                event2Border1.SetValue(Grid.ColumnSpanProperty, 4);
+                event2Border1.Margin = left;
+                event2Border2.SetValue(Grid.ColumnSpanProperty, 4);
+                event2Border2.SetValue(Grid.ColumnProperty, 4);
+                event2Border2.Margin = right;
+                event2Border3.SetValue(Grid.ColumnSpanProperty, 4);
+                event2Border3.Margin = left;
+                event2Border4.SetValue(Grid.ColumnSpanProperty, 4);
+                event2Border4.Margin = right;
+                event2Border4.SetValue(Grid.ColumnProperty, 4);
                 foreach (ColumnDefinition column in displayEvent2Ranking.ColumnDefinitions)
                 {
                     column.Width = new GridLength(1, GridUnitType.Star);
@@ -1244,6 +1284,20 @@ namespace TourneyScoreSystem
                 TextBlock[] rankings = new TextBlock[] { event3_8thPlacement, event3_11thPlacement, event3_14thPlacement, event3_17thPlacement };
                 TextBlock[] rankingTexts = new TextBlock[] { event3_8thPlacementT, event3_11thPlacementT, event3_14thPlacementT, event3_17thPlacementT };
                 // Change Grid Layout:
+                Thickness left = event3Border1.Margin;
+                left.Right = 220;
+                Thickness right = event3Border2.Margin;
+                right.Left = 220;
+                event3Border1.SetValue(Grid.ColumnSpanProperty, 4);
+                event3Border1.Margin = left;
+                event3Border2.SetValue(Grid.ColumnSpanProperty, 4);
+                event3Border2.SetValue(Grid.ColumnProperty, 4);
+                event3Border2.Margin = right;
+                event3Border3.SetValue(Grid.ColumnSpanProperty, 4);
+                event3Border3.Margin = left;
+                event3Border4.SetValue(Grid.ColumnSpanProperty, 4);
+                event3Border4.Margin = right;
+                event3Border4.SetValue(Grid.ColumnProperty, 4);
                 foreach (ColumnDefinition column in displayEvent3Ranking.ColumnDefinitions)
                 {
                     column.Width = new GridLength(1, GridUnitType.Star);
@@ -1305,6 +1359,20 @@ namespace TourneyScoreSystem
                 TextBlock[] rankings = new TextBlock[] { event4_8thPlacement, event4_11thPlacement, event4_14thPlacement, event4_17thPlacement };
                 TextBlock[] rankingTexts = new TextBlock[] { event4_8thPlacementT, event4_11thPlacementT, event4_14thPlacementT, event4_17thPlacementT };
                 // Change Grid Layout:
+                Thickness left = event4Border1.Margin;
+                left.Right = 220;
+                Thickness right = event4Border2.Margin;
+                right.Left = 220;
+                event4Border1.SetValue(Grid.ColumnSpanProperty, 4);
+                event4Border1.Margin = left;
+                event4Border2.SetValue(Grid.ColumnSpanProperty, 4);
+                event4Border2.SetValue(Grid.ColumnProperty, 4);
+                event4Border2.Margin = right;
+                event4Border3.SetValue(Grid.ColumnSpanProperty, 4);
+                event4Border3.Margin = left;
+                event4Border4.SetValue(Grid.ColumnSpanProperty, 4);
+                event4Border4.Margin = right;
+                event4Border4.SetValue(Grid.ColumnProperty, 4);
                 foreach (ColumnDefinition column in displayEvent4Ranking.ColumnDefinitions)
                 {
                     column.Width = new GridLength(1, GridUnitType.Star);
@@ -1360,12 +1428,26 @@ namespace TourneyScoreSystem
             }
             // Generate Event 5 Ranking Values:
             displayEvent5Ranking.DataContext = $"{event5.eventTitle} Ranking";
-            event5Heading.Text = (string)displayEvent4Ranking.DataContext;
+            event5Heading.Text = (string)displayEvent5Ranking.DataContext;
             if (event5.isTeamEvent)
             {
                 TextBlock[] rankings = new TextBlock[] { event5_8thPlacement, event5_11thPlacement, event5_14thPlacement, event5_17thPlacement };
                 TextBlock[] rankingTexts = new TextBlock[] { event5_8thPlacementT, event5_11thPlacementT, event5_14thPlacementT, event5_17thPlacementT };
                 // Change Grid Layout:
+                Thickness left = event5Border1.Margin;
+                left.Right = 220;
+                Thickness right = event5Border2.Margin;
+                right.Left = 220;
+                event5Border1.SetValue(Grid.ColumnSpanProperty, 4);
+                event5Border1.Margin = left;
+                event5Border2.SetValue(Grid.ColumnSpanProperty, 4);
+                event5Border2.SetValue(Grid.ColumnProperty, 4);
+                event5Border2.Margin = right;
+                event5Border3.SetValue(Grid.ColumnSpanProperty, 4);
+                event5Border3.Margin = left;
+                event5Border4.SetValue(Grid.ColumnSpanProperty, 4);
+                event5Border4.Margin = right;
+                event5Border4.SetValue(Grid.ColumnProperty, 4);
                 foreach (ColumnDefinition column in displayEvent5Ranking.ColumnDefinitions)
                 {
                     column.Width = new GridLength(1, GridUnitType.Star);
@@ -1502,7 +1584,7 @@ namespace TourneyScoreSystem
                         teamDRankingTexts[i].Text = "3rd Place: ";
                         break;
                     default:
-                        teamDRankingTexts[i].Text = $"{team1.playerOrder[i].Item2}th Place: ";
+                        teamDRankingTexts[i].Text = $"{team4.playerOrder[i].Item2}th Place: ";
                         break;
                 }
                 teamDRankings[i].Text = $"{team4.playerOrder[i].Item1.name}, {team4.playerOrder[i].Item1.points}pts";
